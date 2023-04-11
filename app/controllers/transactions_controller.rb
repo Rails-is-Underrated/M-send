@@ -2,7 +2,7 @@ class TransactionsController < ApplicationController
   
   def index
     @transactions = current_user.sent_transactions + current_user.received_transactions
-    render json: @transactions
+    render json: @transactions.uniq
   end
 
   # top_ups

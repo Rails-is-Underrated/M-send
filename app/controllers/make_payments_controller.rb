@@ -1,4 +1,4 @@
-class MpesaTransfersController < ApplicationController
+class MakePaymentsController < ApplicationController
 
   def create
     amount = params[:amount].to_f
