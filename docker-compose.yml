@@ -1,0 +1,38 @@
+version: '3.9'
+x-base: &base
+  build:
+    context: .
+    dockerfile: ./Dockerfile.dev
+    args:
+      RUBY_VERSION: '3.0.3-alpine'
+  stdin_open: true
+  tty: true
+  volumes:
+    - .:/app:cached
+    - bundle:/usr/local/bundle
+  environment:
+    - DATABASE_URL=postgres://postgres:postgres@postgres:5432
+  depends_on:
+    - postgres
+  links:
+    - postgres
+
+services:
+  app:
+    <<: *base
+    command: bin/rails server -p 3000 -b 0.0.0.0
+    ports:
+      - '3000:3000'
+
+  postgres:
+      image: postgres:14-alpine
+      volumes:
+        - postgres:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_PASSWORD=postgres
+      ports:
+        - 5432
+
+volumes:
+  bundle:
+  postgres:
