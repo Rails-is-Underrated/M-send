@@ -10,11 +10,12 @@ class User < ApplicationRecord
   validates :phone_number, uniqueness: true
   delegate :balance, :account_number, to: :mpesa_account
 
+  
   private
 
   def create_mpesa_account
-      account_number = 'MP' + rand(10 ** 8).to_s.rjust(8, '0')
+    account_number = 'MP' + rand(10 ** 8).to_s.rjust(8, '0')
 
-      MpesaAccount.find_or_create_by!(account_number: account_number, user_id: id) if mpesa_account.blank?
+    MpesaAccount.find_or_create_by!(account_number: account_number, user_id: id) if mpesa_account.blank?
   end
 end
