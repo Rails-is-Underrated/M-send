@@ -12,10 +12,12 @@ class AuthorizeApiRequest
   private
 
   attr_reader :headers
-
+  HMAC_SECRET = Rails.application.secrets.secret_key_base
+  
   def user
-    @user ||= User.find(decoded_auth_token[:user_id]) if decoded_auth_token
+    @user = User.find(id) if decoded_auth_token
 
+    
   rescue ActiveRecord::RecordNotFound => e
 
     raise(
@@ -25,7 +27,11 @@ class AuthorizeApiRequest
   end
 
   def decoded_auth_token
-    @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
+    @decoded_auth_token = JWT.decode(http_auth_header, HMAC_SECRET)
+  end
+
+  def id
+    decoded_auth_token[0]['user_id']
   end
 
   def http_auth_header
