@@ -130,6 +130,10 @@ GEM
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     pg (1.4.3)
+    phony (2.20.2)
+    phony_rails (0.15.0)
+      activesupport (>= 3.0)
+      phony (>= 2.18.12)
     public_suffix (5.0.1)
     puma (5.6.5)
       nio4r (~> 2.0)
@@ -193,6 +197,7 @@ DEPENDENCIES
   letter_opener
   letter_opener_web (~> 2.0)
   pg (~> 1.1)
+  phony_rails
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.3, >= 7.0.3.1)

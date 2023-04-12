@@ -1,7 +1,7 @@
 class MpesaDepositsController < ApplicationController
 
   def create
-    phone_number = params[:phone_number]
+    phone_number = PhonyRails.normalize_number(params[:phone_number], country_code: 'KE').gsub(/\W/, '')
     amount = params[:amount]
 
     # trigger mpesa stk push and check response.
