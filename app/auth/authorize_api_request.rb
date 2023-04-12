@@ -1,3 +1,5 @@
+require "jwt"
+
 class AuthorizeApiRequest
   def initialize(headers = {})
     @headers = headers
