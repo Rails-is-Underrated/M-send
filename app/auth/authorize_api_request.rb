@@ -14,7 +14,7 @@ class AuthorizeApiRequest
   private
 
   attr_reader :headers
-  HMAC_SECRET = Rails.application.secrets.secret_key_base
+  HMAC_SECRET = 'my$ecretK3y'
   
   def user
     @user = User.find(id) if decoded_auth_token
@@ -29,7 +29,6 @@ class AuthorizeApiRequest
   end
 
   def decoded_auth_token
-    binding.irb
     @decoded_auth_token = JWT.decode(http_auth_header, HMAC_SECRET)
   end
 
