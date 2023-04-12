@@ -10,10 +10,13 @@ class MakePaymentsController < ApplicationController
       render json: { error: 'Recipient not found' }, status: :not_found
     elsif recipient.mpesa_account.nil?
       render json: { error: 'Recipient does not have an Mpesa account' }, status: :bad_request
+    elsif current_user.mpesa_account.balance <= 0
+      render json: { error: 'Zero balance' }, status: :bad_request
+    elsif current_user.mpesa_account.balance < amount
+      render json: { error: 'Insufficient balance' }, status: :bad_request
     else
       ActiveRecord::Base.transaction do
         Transaction.create!(sender: current_user, recipient: recipient, amount: amount, transaction_type: "transfer")
-        # check if account is zero.
         current_user.mpesa_account.withdraw(amount)
         recipient.mpesa_account.deposit(amount)
         recipient.notifications.create!(
