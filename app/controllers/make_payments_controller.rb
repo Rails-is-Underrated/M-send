@@ -22,6 +22,11 @@ class MakePaymentsController < ApplicationController
         )
       end
 
+      # send confirmation email
+
+      UserMailer.confirmation_email(recipient, amount).deliver_now
+
+
       render json: { message: 'Deposit successful', balance: current_user.mpesa_account.balance }, status: :ok
     end
   end

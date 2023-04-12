@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
   get '/deposits', to: 'transactions#deposits'
