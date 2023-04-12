@@ -6,7 +6,7 @@ class ReportMailer < ApplicationMailer
     binding.irb
     @user = user
     @transactions = transactions
-    @url  = 'http://m-send.com/login'
+    @url  = 'https://m-send.onrender.com/auth/login'
 
     mail to: @user.email, subject: "Report Email"
   end

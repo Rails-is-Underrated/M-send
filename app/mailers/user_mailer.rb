@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
   def confirmation_email(user, amount)
     @user = user
     @amount = amount 
-    @url  = 'http://m-send.com/login'
+    @url  = 'https://m-send.onrender.com/auth/login'
     
     mail to: @user.email, subject: "Confirmation Email"
   end
