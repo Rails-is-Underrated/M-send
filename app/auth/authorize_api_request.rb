@@ -29,6 +29,7 @@ class AuthorizeApiRequest
   end
 
   def decoded_auth_token
+    binding.irb
     @decoded_auth_token = JWT.decode(http_auth_header, HMAC_SECRET)
   end
 
