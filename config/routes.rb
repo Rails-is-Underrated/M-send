@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/transfers', to: 'transactions#transfers'
   get '/balance', to: 'account#balance'
   resources :notifications, only: [:index]
+  resources :reports, only: [:index]
   resources :make_payments, only: [:create]
   resources :mpesa_deposits, only: [:create]
   resources :transactions, only: [:index]
