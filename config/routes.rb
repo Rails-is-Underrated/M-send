@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: redirect('https://documenter.getpostman.com/view/13303112/2s93XvWkJt')
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   post 'auth/login', to: 'authentication#authenticate'
