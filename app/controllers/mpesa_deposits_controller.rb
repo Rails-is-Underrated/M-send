@@ -10,9 +10,10 @@ class MpesaDepositsController < ApplicationController
     elsif current_user.mpesa_account.nil?
       render json: { error: 'User does not have an Mpesa account' }, status: :bad_request
     else
-      Transaction.create!(sender: current_user, recipient: current_user, amount: amount, transaction_type: "deposit")
-      current_user.mpesa_account.deposit(amount) 
-
+      ActiveRecord::Base.transaction do
+        Transaction.create!(sender: current_user, recipient: current_user, amount: amount, transaction_type: "deposit")
+        current_user.mpesa_account.deposit(amount)
+      end
       render json: { message: 'Deposit successful', balance: current_user.mpesa_account.balance }, status: :ok
     end
   end
