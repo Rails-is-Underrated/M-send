@@ -1,5 +1,5 @@
 class JsonWebToken
-  HMAC_SECRET = 'my$ecretK3y'
+  HMAC_SECRET = 'my$ecretK£y'
 
   def self.encode(payload, exp = 24.hours.from_now)
     payload[:exp] = exp.to_i

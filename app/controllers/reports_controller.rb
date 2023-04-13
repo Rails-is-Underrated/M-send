@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
       
     # send reports
 
-    ReportMailer.send_report(current_user, @transactions ).deliver_now
+    ReportMailer.send_report(current_user, @transactions ).deliver_later
 
     render json: { transactions: @transactions }
 
